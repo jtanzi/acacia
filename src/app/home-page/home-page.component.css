@@ -1,0 +1,13 @@
+#main-nav {
+  width: 50%;
+  margin: 50px auto;
+}
+
+#main-buttons md-chip {
+  margin: 20px 0;
+}
+
+#main-buttons md-chip:hover {
+  background-color: #66b2b2;
+  color: #FFF;
+}

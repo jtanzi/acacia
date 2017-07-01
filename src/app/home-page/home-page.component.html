@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center">
+        Welcome {{ displayName }}
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="main-nav" class="text-center">
+        <md-chip-list class="mat-chip-list-stacked" id="main-buttons">
+          <a routerLink="{{button.link}}" *ngFor="let button of mainButtons">
+            <md-chip
+              selected="true"
+              color="{{button.color}}">
+            <h3>{{button.label}}</h3>
+            </md-chip>
+          </a>
+        </md-chip-list>
+      </div>
+    </div>
+
+  </div>
+</div>
