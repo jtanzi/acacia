@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AF } from "../providers/af";
+import { AppComponent } from '../app.component';
 import { RecipeService } from '../recipe.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -22,11 +24,16 @@ export class HomePageComponent implements OnInit {
 
   public displayName: string;
 
-  constructor(public recipeService: RecipeService, public afService: AF, private db: AngularFireDatabase ) {
-    this.displayName = afService.displayName;
+  constructor(public recipeService: RecipeService, public afService: AF, private db: AngularFireDatabase, public app: AppComponent, private router: Router ) {
+    // this.displayName = afService.displayName;
   }
 
-  ngOnInit() {
+  ngOnInit( ) {
+    this.displayName = this.app.displayName;
+  }
+
+  logout() {
+    this.afService.logout();
   }
 
 }

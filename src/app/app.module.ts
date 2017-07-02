@@ -18,12 +18,22 @@ import { PlanDetailsComponent } from './plan-details/plan-details.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 
-import {RouterModule, Routes} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import { RouterModule, Routes} from "@angular/router";
+import { FormsModule } from "@angular/forms";
+import { RecipesComponent } from './recipes/recipes.component';
+import { PlansComponent } from './plans/plans.component';
+import { PlanCreateComponent } from './plancreate/plancreate.component';
+import { RecipeCreateComponent } from './recipecreate/recipecreate.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'login', component: LoginPageComponent }
+  { path: 'login', component: LoginPageComponent },
+  { path: 'plan-create', component: PlanCreateComponent },
+  { path: 'plans', component: PlansComponent },
+  { path: 'plan-details', component: PlanDetailsComponent },
+  { path: 'recipes', component: RecipesComponent },
+  { path: 'recipe-details/:id', component: RecipeDetailsComponent },
+  { path: 'recipe-create', component: RecipeCreateComponent }
 ];
 
 @NgModule({
@@ -32,7 +42,11 @@ const routes: Routes = [
     RecipeDetailsComponent,
     PlanDetailsComponent,
     LoginPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    RecipesComponent,
+    PlansComponent,
+    PlanCreateComponent,
+    RecipeCreateComponent
   ],
   imports: [
     BrowserModule,

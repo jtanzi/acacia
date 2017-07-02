@@ -28,6 +28,8 @@ export class AF {
   }
 
   logout() {
+    this.displayName = '';
+    this.email = '';
     return this.afAuth.auth.signOut();
   }
 }

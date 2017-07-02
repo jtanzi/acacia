@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AF } from "./providers/af";
 import { Recipe } from './recipe';
 
 @Injectable()
 export class RecipeService {
-  public database: AngularFireDatabase;
+  public recipes: FirebaseListObservable<any>;
 
-  constructor() {
-
+  constructor( public db: AngularFireDatabase) {
+    this.recipes = this.db.list('recipes');
   }
 
-  createRecipe( recipe: Recipe, db: AngularFireDatabase ){
-      const recipes = db.list('/recipes');
-      recipes.push(recipe);
+  createRecipe(recipe: Recipe){
+    this.recipes.push(recipe);
   }
 
-  getRecipes( db: AngularFireDatabase ) {
-    return db.list('/recipes');
+  getRecipes() {
+    return this.recipes;
   }
 
-
+  getRecipe(recipeId: string) {
+    return this.db.list('/recipes', {
+      query: {
+        orderByChild: 'id',
+        equalTo: recipeId
+      }
+    });
+  }
 
 }

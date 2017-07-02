@@ -11,6 +11,9 @@ import { Router } from "@angular/router";
 export class AppComponent {
   public isLoggedIn: boolean;
   public title: string;
+  public displayName: string;
+  public email: string;
+  public userId: string;
 
   // items: FirebaseListObservable<any[]>;
   constructor(public afService: AF, private router: Router, db: AngularFireDatabase) {
@@ -30,8 +33,8 @@ export class AppComponent {
         else {
           console.log("Successfully Logged in.");
           this.isLoggedIn = true;
-          this.afService.displayName = auth.displayName;
-          this.afService.email = auth.email;
+          this.displayName = auth.displayName;
+          this.email = auth.email;
           this.router.navigate(['']);
         }
       }
