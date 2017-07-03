@@ -20,12 +20,7 @@ export class RecipeService {
   }
 
   getRecipe(recipeId: string) {
-    return this.db.list('/recipes', {
-      query: {
-        orderByChild: 'id',
-        equalTo: recipeId
-      }
-    });
+    return this.db.object('/recipes/recipeId');
   }
 
 }

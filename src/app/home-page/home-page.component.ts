@@ -19,7 +19,7 @@ export class HomePageComponent implements OnInit {
     { label: 'View Plans', color: 'primary', link: '/plans' },
     { label: 'Create Plan', color: 'accent', link: '/plan-create' },
     { label: 'View Recipes', color: 'warn' , link: '/recipes'},
-    { label: 'Add Recipe', color: 'secondary' , link: '/recipes'},
+    { label: 'Add Recipe', color: 'secondary' , link: '/recipe-create'},
   ];
 
   public displayName: string;

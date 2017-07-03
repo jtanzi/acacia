@@ -7,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeCreateComponent implements OnInit {
 
-  constructor() { }
+  units = [
+    'cup(s)',
+    'fl oz',
+    'oz',
+    'tsp',
+    'tbsp',
+    'liter(s)',
+    'pint(s)'
+  ];
+  constructor(
+  ) { }
 
   ngOnInit() {
   }

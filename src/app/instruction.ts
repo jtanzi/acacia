@@ -1,4 +1,8 @@
 export class Instruction {
-  order: number;
-  text: string;
+
+  constructor(
+    order: number,
+    text: string
+  ) {}
+  
 }

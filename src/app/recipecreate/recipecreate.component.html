@@ -1,3 +1,42 @@
-<p>
-  recipecreate works!
-</p>
+<div class="container">
+  <div class="row title-section text-center">
+    <h1>Add New Recipe</h1>
+  </div>
+  <form>
+    <div class="row form-group">
+      <div class="col-md-12">
+        <md-input-container class="input-lg">
+          <input mdInput placeholder="Title" value="">
+        </md-input-container>
+      </div>
+      <div class="col-md-12">
+        <md-input-container class="input-lg">
+          <input mdInput placeholder="Author" value="">
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-12">
+        <h2>Ingredients</h2>
+      </div>
+      <div class="col-md-4">
+        <md-input-container>
+          <input mdInput placeholder="Amount" value="0">
+        </md-input-container>
+      </div>
+      <div class="col-md-4">
+        <md-select placeholder="Unit">
+          <md-option *ngFor="let unit of units" [value]="">
+            {{ unit }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-md-4">
+
+      </div>
+    </div>
+
+  </form>
+
+
+</div>

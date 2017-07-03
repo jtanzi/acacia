@@ -14,3 +14,18 @@ a {
 a:hover {
   text-decoration: none;
 }
+
+md-input-container {
+
+}
+
+.form-group {
+  border: 2px solid #8bc34a;
+  border-radius: 15px;
+  background-color: #222;
+  padding: 40px 20px;
+}
+
+.input-lg {
+  width: 100%;
+}
