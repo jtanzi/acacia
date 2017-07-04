@@ -1,42 +1,99 @@
+
 <div class="container">
-  <div class="row title-section text-center">
-    <h1>Add New Recipe</h1>
+  <div class="row title-section">
+    <div class="col-sm-12">
+      <h1 class="text-center">Add New Recipe</h1>
+    </div>
   </div>
-  <form>
-    <div class="row form-group">
+</div>
+<form #recipeCreate="ngForm">
+  <div class="container form-group">
+    <div class="row">
       <div class="col-md-12">
         <md-input-container class="input-lg">
-          <input mdInput placeholder="Title" value="">
+          <input mdInput placeholder="Title" value="" id="recipe-title-input" required [(ngModel)]="recipe.title" name="title">
         </md-input-container>
       </div>
       <div class="col-md-12">
         <md-input-container class="input-lg">
-          <input mdInput placeholder="Author" value="">
+          <input mdInput placeholder="Author" value="" id="recipe-author-input" [(ngModel)]="recipe.author" name="author">
         </md-input-container>
       </div>
     </div>
-    <div class="row form-group">
-      <div class="col-md-12">
-        <h2>Ingredients</h2>
+  </div>
+  <div class="container form-group">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Ingredients</h3>
       </div>
+    </div>
+    <div class="row" *ngFor="let ingredient of recipe.ingredients, let i=index">
       <div class="col-md-4">
         <md-input-container>
-          <input mdInput placeholder="Amount" value="0">
+          <input mdInput placeholder="Amount" [(ngModel)]="ingredient.amount" name="ingredient-amount-{{i}}">
         </md-input-container>
       </div>
       <div class="col-md-4">
-        <md-select placeholder="Unit">
-          <md-option *ngFor="let unit of units" [value]="">
+        <md-select placeholder="Unit" [(ngModel)]="ingredient.unit" name="ingredient-unit-{{i}}">
+          <md-option *ngFor="let unit of units" [value]="unit">
             {{ unit }}
           </md-option>
         </md-select>
       </div>
       <div class="col-md-4">
-
+        <md-input-container>
+          <input mdInput placeholder="What is it?" [(ngModel)]="ingredient.name" name="ingredient-name-{{i}}">
+        </md-input-container>
       </div>
     </div>
-
-  </form>
-
-
-</div>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <button class="btn btn-outline-success" (click)="addIngredient()">Add More</button>
+      </div>
+    </div>
+  </div>
+  <div class="container form-group">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Instructions</h3>
+      </div>
+    </div>
+    <div class="row" *ngFor="let instruction of recipe.instructions, let i=index">
+      <div class="col-sm-1">
+        <p class="instruction-order-label">{{ instruction.order }})</p>
+      </div>
+      <div class="col-sm-11">
+        <md-input-container class="input-lg">
+          <textarea mdInput placeholder="What to do" [(ngModel)]="instruction.text" name="instruction-text-{{i}}"></textarea>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <button class="btn btn-outline-success" (click)="addInstruction()">Add More</button>
+      </div>
+    </div>
+  </div>
+  <div class="container form-group">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Notes</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <md-input-container class="input-lg">
+          <textarea mdInput placeholder="" id="recipe-notes-input" [(ngModel)]="recipe.notes" name="notes"></textarea>
+        </md-input-container>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <button class="btn btn-outline-success btn-lg" (click)="saveRecipe()">Save</button>
+        <button class="btn btn-outline-danger btn-lg" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>
