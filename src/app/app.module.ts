@@ -34,7 +34,8 @@ const routes: Routes = [
   { path: 'plan-details', component: PlanDetailsComponent },
   { path: 'recipes', component: RecipesComponent },
   { path: 'recipe-details/:id', component: RecipeDetailsComponent },
-  { path: 'recipe-create', component: RecipeCreateComponent }
+  { path: 'recipe-create', component: RecipeCreateComponent },
+  { path: 'recipe-update/:id', component: RecipeCreateComponent }
 ];
 
 @NgModule({
