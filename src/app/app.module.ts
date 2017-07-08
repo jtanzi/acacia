@@ -25,17 +25,19 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { PlansComponent } from './plans/plans.component';
 import { PlanCreateComponent } from './plancreate/plancreate.component';
 import { RecipeCreateComponent } from './recipecreate/recipecreate.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'plan-create', component: PlanCreateComponent },
   { path: 'plans', component: PlansComponent },
-  { path: 'plan-details', component: PlanDetailsComponent },
+  { path: 'plan-details/:id', component: PlanDetailsComponent },
   { path: 'recipes', component: RecipesComponent },
   { path: 'recipe-details/:id', component: RecipeDetailsComponent },
-  { path: 'recipe-create', component: RecipeCreateComponent },
-  { path: 'recipe-update/:id', component: RecipeCreateComponent }
+  { path: 'recipe/create', component: RecipeCreateComponent },
+  { path: 'recipe/:id', component: RecipeCreateComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -48,7 +50,8 @@ const routes: Routes = [
     RecipesComponent,
     PlansComponent,
     PlanCreateComponent,
-    RecipeCreateComponent
+    RecipeCreateComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase, 'acacia'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    // RouterModule.forRoot(routes, { enableTracing: true }),
     RouterModule.forRoot(routes),
     FormsModule
   ],

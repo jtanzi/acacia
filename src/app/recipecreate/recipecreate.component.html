@@ -24,6 +24,27 @@
   <div class="container form-group">
     <div class="row">
       <div class="col-sm-12">
+        <h3>Categories</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <md-select placeholder="Category" [ngModel]="recipe.categories" (ngModelChange)="addCategory($event)" name="categories">
+          <md-option *ngFor="let category of categories" [value]="category" >
+            {{ category }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-sm-8 category-list-wrapper">
+        <div class="category-list-item" *ngFor="let item of recipe.categories">
+          {{ item }} <md-icon (click)="removeCategory(item)">clear</md-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container form-group">
+    <div class="row">
+      <div class="col-sm-12">
         <h3>Ingredients</h3>
       </div>
     </div>
@@ -92,7 +113,7 @@
     <div class="row">
       <div class="col-sm-12 text-center">
         <button class="btn btn-outline-success btn-lg" (click)="saveRecipe()">Save</button>
-        <button class="btn btn-outline-danger btn-lg" (click)="cancel()">Cancel</button>
+        <button class="btn btn-outline-danger btn-lg" routerLink="/recipes">Cancel</button>
       </div>
     </div>
   </div>

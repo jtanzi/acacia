@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import 'colors.css';
 
 h1, h2 {
   padding-top: 20px;
@@ -32,7 +33,7 @@ md-select {
 }
 
 .form-group {
-  border: 2px solid #8bc34a;
+  border: 2px solid var(--mid-green);
   border-radius: 15px;
   /*background-color: #222;*/
   padding: 40px 20px;

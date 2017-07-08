@@ -9,7 +9,7 @@ import { RecipeService } from '../recipe.service';
   styleUrls: ['./recipecreate.component.css']
 })
 export class RecipeCreateComponent implements OnInit {
-  // @Input() recipe: Recipe;
+
   units = [
     'cup(s)',
     'fl oz',
@@ -20,39 +20,41 @@ export class RecipeCreateComponent implements OnInit {
     'pint(s)'
   ];
 
+  categories = [
+    'Appetizers',
+    'Entrees',
+    'Sides',
+    'Slow Cooker',
+    'Raw',
+    'Desserts'
+  ]
+
   id: string;
   private sub: any;
   recipe = new Recipe();
   instructionIndex = 1;
 
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) {
-    this.sub = this.route.params.subscribe( params => {
-      this.id = params['id'];
-      console.log(this.id);
-
-      if(this.id) {
-        this.recipeService.getRecipe(this.id);
-        const result = this.recipeService.recipe;
-        result.subscribe(r => {
-          this.recipe.title = r.title;
-          this.recipe.author = r.author;
-          this.recipe.ingredients = r.ingredients;
-          this.recipe.instructions = r.instructions;
-          this.recipe.notes = r.notes;
-        });
-      }
-      else {
-        this.recipe.title = "";
-        this.recipe.author="";
-        this.recipe.ingredients = [{name: "", unit: "", amount: 0}];
-        this.recipe.instructions = [{order: 1, text: ""}];
-        this.recipe.notes = "";
-      }
-    })
+    this.recipe.title = "";
+    this.recipe.author="";
+    this.recipe.categories = [];
+    this.recipe.ingredients = [{name: "", unit: "", amount: 0}];
+    this.recipe.instructions = [{order: 1, text: ""}];
+    this.recipe.notes = "";
   }
 
   ngOnInit() {
+    this.sub = this.route.params.subscribe( params => {
+      this.id = params['id'];
 
+    });
+
+    if(this.id) {
+      var result = this.recipeService.getRecipe(this.id);
+      result.subscribe(snapshot => {
+        this.recipe = snapshot.val();
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -62,13 +64,28 @@ export class RecipeCreateComponent implements OnInit {
   }
 
   saveRecipe() {
-    console.log(this.recipe);
     this.recipeService.createRecipe(this.recipe);
+    this.router.navigate(['recipes']);
   }
 
   cancel() {
     this.router.navigate(['']);
+  }
 
+  addCategory(category) {
+    // Prevent same category from being entered multiple times
+    var alreadyPresent = this.recipe.categories.indexOf(category) != -1;
+    console.log(alreadyPresent);
+    if(!alreadyPresent) {
+      this.recipe.categories.push(category);
+    }
+  }
+
+  removeCategory(category) {
+    var index = this.recipe.categories.indexOf(category);
+    if(index != -1) {
+      this.recipe.categories.splice(index, 1);
+    }
   }
 
   addIngredient() {

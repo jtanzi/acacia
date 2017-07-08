@@ -6,10 +6,10 @@ import { Recipe } from './recipe';
 @Injectable()
 export class RecipeService {
   public recipes: FirebaseListObservable<any>;
-  public recipe: FirebaseObjectObservable<any>;
+  public recipe: Recipe;
 
   constructor( public db: AngularFireDatabase) {
-    this.recipes = this.db.list('recipes');
+    this.recipes = this.db.list('recipes', { preserveSnapshot: true });
   }
 
   createRecipe(recipe: Recipe){
@@ -21,7 +21,8 @@ export class RecipeService {
   }
 
   getRecipe(recipeId: string) {
-    this.recipe = this.db.object(`/recipes/${recipeId}`);
+    var result = this.db.object(`/recipes/${recipeId}`, { preserveSnapshot: true });
+    return result;
   }
 
 }
