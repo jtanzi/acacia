@@ -31,6 +31,7 @@ export class RecipesComponent implements OnInit {
         recipe.id = snapshot.key;
         recipe.title = snapshot.val().title;
         recipe.author = snapshot.val().author;
+        recipe.categories = snapshot.val().categories;
         recipe.ingredients = snapshot.val().ingredients;
         recipe.instructions = snapshot.val().instructions;
         recipe.notes = snapshot.val().notes;
@@ -50,8 +51,9 @@ export class RecipesComponent implements OnInit {
   }
 
   filterSelect(selection) {
+    console.log(selection);
     if(selection != 'All') {
-      // this.recipes = this.recipesCopy.categories.filter(category => { category == selection; });
+      this.recipes = this.recipesCopy.filter(r => { return r.categories.indexOf(selection) > -1; });
     } else {
       this.recipes = this.recipesCopy;
     }

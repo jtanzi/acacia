@@ -42,3 +42,8 @@ md-select {
 .input-lg {
   width: 100%;
 }
+
+.validation-error-message {
+  font-size: 12px;
+  color: #111;
+}

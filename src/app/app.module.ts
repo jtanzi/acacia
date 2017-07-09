@@ -24,7 +24,7 @@ import { FormsModule } from "@angular/forms";
 import { RecipesComponent } from './recipes/recipes.component';
 import { PlansComponent } from './plans/plans.component';
 import { PlanCreateComponent } from './plancreate/plancreate.component';
-import { RecipeCreateComponent } from './recipecreate/recipecreate.component';
+import { RecipeFormComponent } from './recipeform/recipeform.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
@@ -35,8 +35,8 @@ const routes: Routes = [
   { path: 'plan-details/:id', component: PlanDetailsComponent },
   { path: 'recipes', component: RecipesComponent },
   { path: 'recipe-details/:id', component: RecipeDetailsComponent },
-  { path: 'recipe/create', component: RecipeCreateComponent },
-  { path: 'recipe/:id', component: RecipeCreateComponent },
+  { path: 'recipe/create', component: RecipeFormComponent },
+  { path: 'recipe/:id', component: RecipeFormComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -50,7 +50,7 @@ const routes: Routes = [
     RecipesComponent,
     PlansComponent,
     PlanCreateComponent,
-    RecipeCreateComponent,
+    RecipeFormComponent,
     PageNotFoundComponent
   ],
   imports: [
