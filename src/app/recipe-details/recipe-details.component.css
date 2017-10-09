@@ -1,0 +1,12 @@
+
+.recipe-header {
+  padding: 20px;
+}
+
+.recipe-author, .recipe-category {
+  font-style: italic;
+}
+
+.ingredient-list-item {
+  display: inline-block;
+}

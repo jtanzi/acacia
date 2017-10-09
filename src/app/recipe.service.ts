@@ -12,7 +12,7 @@ export class RecipeService {
     this.recipes = this.db.list('recipes', { preserveSnapshot: true });
   }
 
-  createRecipe(recipe: Recipe){
+  createRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
   }
 

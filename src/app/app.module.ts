@@ -5,7 +5,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
+import { DragulaModule } from 'ng2-dragula';
 
 import { MaterialModule } from '@angular/material';
 
@@ -23,15 +24,16 @@ import { RouterModule, Routes} from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { RecipesComponent } from './recipes/recipes.component';
 import { PlansComponent } from './plans/plans.component';
-import { PlanCreateComponent } from './plancreate/plancreate.component';
 import { RecipeFormComponent } from './recipeform/recipeform.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { PlanFormComponent } from './planform/planform.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'plan-create', component: PlanCreateComponent },
   { path: 'plans', component: PlansComponent },
+  { path: 'plan/:id', component: PlanFormComponent },
+  { path: 'plan/create', component: PlanFormComponent },
   { path: 'plan-details/:id', component: PlanDetailsComponent },
   { path: 'recipes', component: RecipesComponent },
   { path: 'recipe-details/:id', component: RecipeDetailsComponent },
@@ -49,15 +51,16 @@ const routes: Routes = [
     HomePageComponent,
     RecipesComponent,
     PlansComponent,
-    PlanCreateComponent,
     RecipeFormComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PlanFormComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    DragulaModule,
     MaterialModule,
-    AngularFireModule.initializeApp(environment.firebase, 'acacia'),
+    AngularFireModule.initializeApp(environment.firebase), // Named apps not supported in current version of AngularFire2
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     // RouterModule.forRoot(routes, { enableTracing: true }),

@@ -17,7 +17,6 @@ export class AppComponent {
 
   // items: FirebaseListObservable<any[]>;
   constructor(public afService: AF, private router: Router, db: AngularFireDatabase) {
-    //this.items = db.list('items');
     this.title = 'Acacia';
     // This asynchronously checks if our user is logged it and will automatically
     // redirect them to the Login page when the status changes.
@@ -26,7 +25,6 @@ export class AppComponent {
       (auth) => {
         if(auth == null) {
           console.log("Not Logged in.");
-
           this.router.navigate(['login']);
           this.isLoggedIn = false;
         }
@@ -35,10 +33,11 @@ export class AppComponent {
           this.isLoggedIn = true;
           this.displayName = auth.displayName;
           this.email = auth.email;
-          this.router.navigate(['']);
+          // this.router.navigate(['']);
         }
       }
     );
+
   }
 
   logout() {

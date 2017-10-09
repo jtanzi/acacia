@@ -1,0 +1,29 @@
+/*@import '../colors.css';*/
+
+.section-heading {
+  padding-bottom: 20px;
+}
+
+.instruction-order-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+.category-list-item {
+  border-radius: 10px;
+  border: none;
+  padding: 5px 10px;
+  font-size: 18px;
+  background-color: var(--light-green);
+  text-align: center;
+  margin: 10px;
+  display: inline-block;
+}
+
+.recipe-clear-icon {
+  vertical-align: middle;
+  margin-left: 20px;
+  cursor: pointer;
+  font-size: 17px;
+}

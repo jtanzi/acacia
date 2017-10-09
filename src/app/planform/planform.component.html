@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Create/Update Meal Plan</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 form-group" id="filter-selector">
+      <div class="row">
+        <div class="filter-selector-item text-center  col" *ngFor="let filter of filters" (click)="filterSelect(filter.name)">
+          <p>{{ filter.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-12" class="recipe-list" [dragula]='"plan-bag"' [dragulaModel]='recipes'>
+          <md-card *ngFor="let recipe of recipes" class="recipe-card">
+            <md-card-title>{{recipe.title}}</md-card-title>
+          </md-card>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="row">
+        <div *ngFor="let weekday of weekdays" class="col-sm-12 weekday-container" id={{weekday}} [dragula]='"plan-bag"'>
+          <h3>{{weekday}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

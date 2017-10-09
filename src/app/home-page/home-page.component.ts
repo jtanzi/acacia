@@ -17,7 +17,7 @@ export class HomePageComponent implements OnInit {
 
   mainButtons = [
     { label: 'View Plans', color: 'primary', link: '/plans' },
-    { label: 'Create Plan', color: 'accent', link: '/plan-create' },
+    { label: 'Create Plan', color: 'accent', link: '/plan/create' },
     { label: 'View Recipes', color: 'warn' , link: '/recipes'},
     { label: 'Add Recipe', color: 'secondary' , link: '/recipe/create'},
   ];
