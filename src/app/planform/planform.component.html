@@ -16,8 +16,8 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="row">
-        <div class="col-sm-12" class="recipe-list" [dragula]='"plan-bag"' [dragulaModel]='recipes'>
-          <md-card *ngFor="let recipe of recipes" class="recipe-card">
+        <div class="col-sm-12 container" class="recipe-list" [dragula]='"plan-bag"' [dragulaModel]="recipes">
+          <md-card *ngFor="let recipe of recipes" class="recipe-card" [attr.data-recipe-id]="recipe.id">
             <md-card-title>{{recipe.title}}</md-card-title>
           </md-card>
         </div>
@@ -25,8 +25,11 @@
     </div>
     <div class="col-sm-8">
       <div class="row">
-        <div *ngFor="let weekday of weekdays" class="col-sm-12 weekday-container" id={{weekday}} [dragula]='"plan-bag"'>
-          <h3>{{weekday}}</h3>
+        <h3>{{weekday}}</h3>
+        <div *ngFor="let weekday of weekdays; let i = index" class="col-sm-12 weekday-container row" id={{weekday}}  [dragula]='"plan-bag"' [dragulaModel]="plan.weekdays[weekday]">
+          <md-card *ngFor="let recipe of plan.weekdays[weekday]" class="recipe-card col-3" [attr.data-recipe-id]="recipe.id">
+            <md-card-title>{{recipe.title}}</md-card-title>
+          </md-card>
         </div>
       </div>
     </div>
