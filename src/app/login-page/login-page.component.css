@@ -35,6 +35,7 @@
   font-size: 21px;
    background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed));
 }
+
 .loginmodal-submit:hover {
   /* border: 1px solid #2f5bb7; */
   border: 0px;
@@ -42,6 +43,7 @@
   background-color: #357ae8;
   /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
 }
+
 .loginmodal-container a {
   text-decoration: none;
   color: #666;
