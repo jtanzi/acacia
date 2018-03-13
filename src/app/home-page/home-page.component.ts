@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { AF } from "../providers/af";
 import { AppComponent } from '../app.component';
 import { RecipeService } from '../recipe.service';
@@ -30,6 +30,10 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit( ) {
     this.displayName = this.app.displayName;
+  }
+
+  navigateTo(link: string): void {
+    this.router.navigateByUrl(link);
   }
 
   logout() {

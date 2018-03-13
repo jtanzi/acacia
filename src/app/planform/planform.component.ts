@@ -5,7 +5,7 @@ import { Recipe } from '../recipe';
 import { Plan } from '../plan';
 import { Day } from '../day';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'app-planform',

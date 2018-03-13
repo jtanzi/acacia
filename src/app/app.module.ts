@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 import { DragulaModule } from 'ng2-dragula';
 
-import { MaterialModule } from '@angular/material';
+import { MatChipsModule, MatInputModule, MatSelectModule, MatButtonModule, MatCardModule, MatIconModule, MatGridListModule } from '@angular/material';
 
 import { RecipeService } from './recipe.service';
 import { PlanService } from './plan.service';
@@ -59,7 +59,13 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     DragulaModule,
-    MaterialModule,
+    MatChipsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatGridListModule,
     AngularFireModule.initializeApp(environment.firebase), // Named apps not supported in current version of AngularFire2
     AngularFireDatabaseModule,
     AngularFireAuthModule,

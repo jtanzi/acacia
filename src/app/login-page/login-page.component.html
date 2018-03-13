@@ -1,7 +1,10 @@
 
-<div class="modal-dialog">
-  <div class="loginmodal-container">
-    <h1>Login to Your Account</h1><br>
+<mat-grid-list id="login-container" cols="1" rowHeight="10em">
+  <mat-grid-tile colspan="1" rowspan="1">
+    <h1>Login to Your Account</h1><br>    
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="1">
     <button class="login loginmodal-submit" (click)="login()">Login With Google</button>
-  </div>
-</div>
+  </mat-grid-tile>
+</mat-grid-list>
+

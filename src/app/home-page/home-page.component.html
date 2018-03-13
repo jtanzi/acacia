@@ -1,26 +1,13 @@
+<!-- Welcome Message -->
+<mat-grid-list cols="1" rowHeight="8em">
+  <mat-grid-tile colspan="1" rowspan="1">
+    <h1>Welcome {{displayName}}</h1>
+  </mat-grid-tile>
+</mat-grid-list>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h1 class="text-center">
-        Welcome {{ displayName }}
-      </h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="main-nav" class="text-center">
-        <md-chip-list class="mat-chip-list-stacked" id="main-buttons">
-          <a routerLink="{{button.link}}" *ngFor="let button of mainButtons">
-            <md-chip
-              selected="true"
-              color="{{button.color}}">
-            <h3>{{button.label}}</h3>
-            </md-chip>
-          </a>
-        </md-chip-list>
-      </div>
-    </div>
-
-  </div>
-</div>
+<!-- Nav Buttons -->
+<mat-grid-list cols="1" rowHeight="6em" gutterSize="20px">
+  <mat-grid-tile *ngFor="let button of mainButtons" colspan="1" rowspan="1">
+    <button mat-raised-button class="main-nav-button" color="{{button.color}}" (click)="navigateTo(button.link)">{{button.label}}</button>
+  </mat-grid-tile>
+</mat-grid-list>

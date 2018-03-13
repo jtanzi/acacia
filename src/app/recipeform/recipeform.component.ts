@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Recipe } from '../recipe';
 import { RecipeService } from '../recipe.service';
