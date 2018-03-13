@@ -7,7 +7,7 @@ import { RecipeService } from '../recipe.service';
 @Component({
   selector: 'app-recipeform',
   templateUrl: './recipeform.component.html',
-  styleUrls: ['./recipeform.component.css']
+  styleUrls: ['./recipeform.component.scss']
 })
 export class RecipeFormComponent implements OnInit {
 

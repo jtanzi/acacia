@@ -6,5 +6,8 @@
   <mat-grid-tile colspan="1" rowspan="1">
     <button class="login loginmodal-submit" (click)="login()">Login With Google</button>
   </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="1">
+    <button class="error-message" *ngIf="errorState">Sorry, that doesn't match with what we have on file.</button>
+  </mat-grid-tile>
 </mat-grid-list>
 

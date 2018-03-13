@@ -10,7 +10,7 @@ import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 @Component({
   selector: 'app-planform',
   templateUrl: './planform.component.html',
-  styleUrls: ['./planform.component.css']
+  styleUrls: ['./planform.component.scss']
 })
 export class PlanFormComponent implements OnInit {
   public recipes: Recipe[];
