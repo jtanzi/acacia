@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Recipe } from '../recipe';
 import { RecipeService } from '../recipe.service';
 
+import {CardModule} from 'primeng/card';
+
 @Component({
   selector: 'app-recipe-details',
   templateUrl: './recipe-details.component.html',
@@ -16,6 +18,8 @@ export class RecipeDetailsComponent implements OnInit {
   private sub: any;
   recipe = new Recipe();
   recipeObservable = new FirebaseObjectObservable();
+  ingredientsArray1 = [];
+  ingredientsArray2 = [];
 
 
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) {
@@ -33,10 +37,17 @@ export class RecipeDetailsComponent implements OnInit {
     });
 
     if(this.id) {
-      var result = this.recipeService.getRecipe(this.id);
+      const result = this.recipeService.getRecipe(this.id);
       this.recipeObservable = result;
       result.subscribe(snapshot => {
         this.recipe = snapshot.val();
+        this.recipe.ingredients.forEach((ing, index) => {
+          if (index % 2 == 0) {
+            this.ingredientsArray1.push(ing);
+          } else {
+            this.ingredientsArray2.push(ing);
+          }
+        })
       });
     }
   }

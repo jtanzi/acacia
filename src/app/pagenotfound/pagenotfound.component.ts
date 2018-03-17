@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagenotfound',
@@ -14,9 +15,13 @@ export class PageNotFoundComponent implements OnInit {
     { label: 'Add Recipe', color: 'secondary' , link: '/recipe/create'},
   ];
 
-  constructor() { }
+  constructor( private router: Router ) { }
 
   ngOnInit() {
+  }
+
+  navigateTo(link: string): void {
+    this.router.navigateByUrl(link);
   }
 
 }

@@ -8,7 +8,15 @@ import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 import { DragulaModule } from 'ng2-dragula';
 
-import { MatChipsModule, MatInputModule, MatSelectModule, MatButtonModule, MatCardModule, MatIconModule, MatGridListModule } from '@angular/material';
+import { MatChipsModule, MatInputModule, MatSelectModule, MatButtonModule,
+  MatCardModule, MatIconModule, MatGridListModule } from '@angular/material';
+
+import { DropdownModule } from 'primeng/dropdown';
+import { ChipsModule } from 'primeng/chips';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { CalendarModule } from 'primeng/calendar';
+import { CardModule } from 'primeng/card';
 
 import { RecipeService } from './recipe.service';
 import { PlanService } from './plan.service';
@@ -20,8 +28,8 @@ import { PlanDetailsComponent } from './plan-details/plan-details.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 
-import { RouterModule, Routes} from "@angular/router";
-import { FormsModule } from "@angular/forms";
+import { RouterModule, Routes} from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { RecipesComponent } from './recipes/recipes.component';
 import { PlansComponent } from './plans/plans.component';
 import { RecipeFormComponent } from './recipeform/recipeform.component';
@@ -56,6 +64,12 @@ const routes: Routes = [
     PlanFormComponent,
   ],
   imports: [
+    DropdownModule,
+    ChipsModule,
+    CardModule,
+    CalendarModule,
+    InputTextModule,
+    SelectButtonModule,
     BrowserModule,
     BrowserAnimationsModule,
     DragulaModule,
