@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
-import { AF } from "./providers/af";
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+
+import { AF } from './providers/af';
 import { Recipe } from './recipe';
+import { ArrayObservable } from 'rxjs/observable/ArrayObservable';
 
 @Injectable()
 export class RecipeService {
-  public recipes: FirebaseListObservable<any>;
-  public recipe: Recipe;
+  public recipes: any;
+  public recipe: Observable<Recipe>;
 
   constructor( public db: AngularFireDatabase) {
-    this.recipes = this.db.list('recipes', { preserveSnapshot: true });
+    
   }
 
   createRecipe(recipe: Recipe) {
@@ -17,11 +20,11 @@ export class RecipeService {
   }
 
   getRecipes() {
-    return this.recipes;
+    return this.db.list('recipes').snapshotChanges();
   }
 
-  getRecipe(recipeId: string) {
-    var result = this.db.object(`/recipes/${recipeId}`, { preserveSnapshot: true });
+  getRecipe(recipeId: string): Observable<any> {
+    const result = this.db.object(`/recipes/${recipeId}`).snapshotChanges();
     return result;
   }
 

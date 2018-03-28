@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from '@angular/router';
 import { Recipe } from '../recipe';
 import { RecipeService } from '../recipe.service';
 
@@ -17,7 +16,6 @@ export class RecipeDetailsComponent implements OnInit {
   id: string;
   private sub: any;
   recipe = new Recipe();
-  recipeObservable = new FirebaseObjectObservable();
   ingredientsArray1 = [];
   ingredientsArray2 = [];
 
@@ -38,16 +36,19 @@ export class RecipeDetailsComponent implements OnInit {
 
     if(this.id) {
       const result = this.recipeService.getRecipe(this.id);
-      this.recipeObservable = result;
-      result.subscribe(snapshot => {
-        this.recipe = snapshot.val();
-        this.recipe.ingredients.forEach((ing, index) => {
-          if (index % 2 == 0) {
-            this.ingredientsArray1.push(ing);
-          } else {
-            this.ingredientsArray2.push(ing);
-          }
-        })
+      result.subscribe(recipe => {
+        console.dir(recipe.payload.val());
+        this.recipe.id = recipe.key;
+        this.recipe.author = recipe.payload.val().author;
+        this.recipe.title = recipe.payload.val().title;
+        this.recipe.categories = recipe.payload.val().categories;
+        this.recipe.ingredients = recipe.payload.val().ingredients;
+        this.recipe.instructions = recipe.payload.val().instructions;
+        this.recipe.notes = recipe.payload.val().notes;
+
+        const ingredientsArr = recipe.payload.val().ingredients;
+        this.ingredientsArray1 = ingredientsArr.splice(0, ingredientsArr.length/2);
+        this.ingredientsArray2 = ingredientsArr;
       });
     }
   }

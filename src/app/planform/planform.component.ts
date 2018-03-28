@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe';
 import { Plan } from '../plan';
 import { Day } from '../day';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
+import { PlanService } from '../plan.service';
 
 @Component({
   selector: 'app-planform',
@@ -39,8 +40,9 @@ export class PlanFormComponent implements OnInit {
     { name: 'Desserts'}
   ];
 
-  constructor(private recipeService: RecipeService, private router: Router, private dragulaService:DragulaService) {
-    this.plan.date = "";
+  constructor(private planService: PlanService, private recipeService: RecipeService, 
+    private router: Router, private dragulaService:DragulaService) {
+    this.plan.date = '';
     this.plan.weekdays = {
       'Su': [],
       'M': [],
@@ -66,7 +68,7 @@ export class PlanFormComponent implements OnInit {
   }
 
   private onDropModel(args) {
-    let [el, target, source] = args;
+    const [el, target, source] = args;
     console.group();
     console.log(this.plan.weekdays[target.id]);
     console.groupEnd();
@@ -74,32 +76,30 @@ export class PlanFormComponent implements OnInit {
 
 
   private onRemoveModel(args) {
-    let [el, source] = args;
+    const [el, source] = args;
     console.log(el.getAttribute('data-recipe-id'));
-    var result = this.recipeService.getRecipe(el.getAttribute('data-recipe-id'));
-    this.recipeObservable = result;
-    result.subscribe(snapshot => {
-      this.currentRecipe = snapshot.val();
+    const result = this.recipeService.getRecipe(el.getAttribute('data-recipe-id'));
+    result.subscribe((next) => {
+      this.currentRecipe = next;
     });
+
   }
 
   ngOnInit() {
-    
 
     this.recipes = [];
     const result = this.recipeService.getRecipes();
     result.subscribe(snapshots => {
       snapshots.forEach(snapshot => {
-        var recipe = new Recipe();
+        const recipe = new Recipe();
         recipe.id = snapshot.key;
-        recipe.title = snapshot.val().title;
-        recipe.author = snapshot.val().author;
-        recipe.categories = snapshot.val().categories;
-        recipe.ingredients = snapshot.val().ingredients;
-        recipe.instructions = snapshot.val().instructions;
-        recipe.notes = snapshot.val().notes;
+        recipe.title = snapshot.payload.val().title;
+        recipe.author = snapshot.payload.val().author;
+        recipe.categories = snapshot.payload.val().categories;
+        recipe.ingredients = snapshot.payload.val().ingredients;
+        recipe.instructions = snapshot.payload.val().instructions;
+        recipe.notes = snapshot.payload.val().notes;
         this.recipes.push(recipe);
-        
       });
       this.recipesCopy = this.recipes;
     })
@@ -112,11 +112,19 @@ export class PlanFormComponent implements OnInit {
 
   filterSelect(selection) {
     console.log(selection);
-    if(selection != 'All') {
-      this.recipes = this.recipesCopy.filter(r => { return r.categories.indexOf(selection) > -1; });
+    if(selection !== 'All') {
+      this.recipes = this.recipesCopy.filter(r => r.categories.indexOf(selection) > -1);
     } else {
       this.recipes = this.recipesCopy;
     }
+  }
+
+  onSaveClick() {
+    this.planService.createPlan(this.plan);
+  }
+
+  onCancelClick() {
+    // TODO
   }
 
 }

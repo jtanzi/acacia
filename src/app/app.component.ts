@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { AF } from "./providers/af";
-import { Router } from "@angular/router";
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AF } from './providers/af';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +33,7 @@ export class AppComponent {
           this.isLoggedIn = true;
           this.displayName = auth.displayName;
           this.email = auth.email;
-          // this.router.navigate(['']);
+          this.router.navigate(['']);
         }
       }
     );

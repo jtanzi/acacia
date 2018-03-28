@@ -1,29 +1,29 @@
 
-<div class="container">
-  <div class="row title-section">
-    <div class="col-sm-12">
+<div class="container ui-g">
+  <div class="ui-g-12 ui-g title-section">
+    <div class="ui-g-12">
       <h1 class="text-center">Add/Update Recipe</h1>
     </div>
   </div>
 </div>
 <form #recipeCreate="ngForm">
-  <div class="container form-group">
-    <div class="row">
-      <div class="col-mat-12">
+  <div class="ui-g container form-group">
+    <div class="ui-g-12 ui-g">
+      <div class="ui-g-12">
         <mat-input-container class="input-lg">
           <input matInput placeholder="Title" value="" id="recipe-title-input" required [(ngModel)]="recipe.title" name="title">
         </mat-input-container>
       </div>
-      <div class="col-mat-12">
+      <div class="ui-g-12">
         <mat-input-container class="input-lg">
           <input matInput placeholder="Author" value="" id="recipe-author-input" [(ngModel)]="recipe.author" name="author">
         </mat-input-container>
       </div>
     </div>
   </div>
-  <div class="container form-group">
-    <div class="row">
-      <div class="col-sm-12">
+  <div class="ui-g container form-group">
+    <div class="ui-g-12 ui-g">
+      <div class="ui-g-12">
         <h3 class="section-heading">Categories</h3>
       </div>
     </div>

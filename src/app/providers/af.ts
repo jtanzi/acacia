@@ -1,5 +1,5 @@
 // src/app/providers/af.ts
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
