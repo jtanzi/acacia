@@ -1,7 +1,9 @@
 import { Recipe } from './recipe';
+import * as moment from 'moment';
 
 export class Plan {
-  date: string;
+  startDate: Date;
+  endDate: Date;
   weekdays: {
     'Su': Recipe[],
     'M': Recipe[],

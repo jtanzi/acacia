@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { AF } from "./providers/af";
-import { Router } from "@angular/router";
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AF } from './providers/af';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -23,17 +23,16 @@ export class AppComponent {
 
     this.afService.user.subscribe(
       (auth) => {
-        if(auth == null) {
-          console.log("Not Logged in.");
+        if (auth == null) {
+          console.log('Not Logged in.');
           this.router.navigate(['login']);
           this.isLoggedIn = false;
-        }
-        else {
-          console.log("Successfully Logged in.");
+        } else {
+          console.log('Successfully Logged in.');
           this.isLoggedIn = true;
           this.displayName = auth.displayName;
           this.email = auth.email;
-          // this.router.navigate(['']);
+          this.router.navigate(['']);
         }
       }
     );

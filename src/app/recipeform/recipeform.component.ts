@@ -1,15 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
-import { Router, ActivatedRoute } from "@angular/router";
-import { Recipe } from '../recipe';
-import { RecipeService } from '../recipe.service';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Recipe } from '../models/recipe';
+import { RecipeService } from '../providers/recipe.service';
 
 @Component({
   selector: 'app-recipeform',
   templateUrl: './recipeform.component.html',
   styleUrls: ['./recipeform.component.scss']
 })
-export class RecipeFormComponent implements OnInit {
+export class RecipeFormComponent implements OnInit, OnDestroy {
 
   units = [
     'cup(s)',
@@ -33,18 +32,17 @@ export class RecipeFormComponent implements OnInit {
   id: string;
   private sub: any;
   recipe = new Recipe();
-  recipeObservable = new FirebaseObjectObservable();
   instructionIndex = 1;
   amountValid = true;
   editMode = false;
 
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) {
-    this.recipe.title = "";
-    this.recipe.author="";
+    this.recipe.title = '';
+    this.recipe.author = '';
     this.recipe.categories = [];
-    this.recipe.ingredients = [{name: "", unit: "", amount: 0}];
-    this.recipe.instructions = [{order: 1, text: ""}];
-    this.recipe.notes = "";
+    this.recipe.ingredients = [{name: '', unit: '', amount: 0}];
+    this.recipe.instructions = [{order: 1, text: ''}];
+    this.recipe.notes = '';
   }
 
   ngOnInit() {
@@ -53,24 +51,23 @@ export class RecipeFormComponent implements OnInit {
 
     });
 
-    if(this.id) {
+    if (this.id) {
       this.editMode = true;
-      var result = this.recipeService.getRecipe(this.id);
-      this.recipeObservable = result;
-      result.subscribe(snapshot => {
-        this.recipe = snapshot.val();
+      const result = this.recipeService.getRecipe(this.id);
+      result.subscribe(value => {
+        this.recipe = <Recipe>value;
       });
     }
   }
 
   ngOnDestroy() {
-    if(this.sub) {
+    if (this.sub) {
       this.sub.unsubscribe();
     }
   }
 
   saveRecipe() {
-    if(this.editMode) {
+    if (this.editMode) {
       this.updateRecipe();
     } else {
       this.recipeService.createRecipe(this.recipe);
@@ -79,7 +76,7 @@ export class RecipeFormComponent implements OnInit {
   }
 
   updateRecipe() {
-    this.recipeObservable.set(this.recipe);
+    // this.recipe.set(this.recipe);
   }
 
   cancel() {
@@ -88,22 +85,22 @@ export class RecipeFormComponent implements OnInit {
 
   addCategory(category) {
     // Prevent same category from being entered multiple times
-    var alreadyPresent = this.recipe.categories.indexOf(category) != -1;
+    const alreadyPresent = this.recipe.categories.indexOf(category) !== -1;
     console.log(alreadyPresent);
-    if(!alreadyPresent) {
+    if (!alreadyPresent) {
       this.recipe.categories.push(category);
     }
   }
 
   removeCategory(category) {
-    var index = this.recipe.categories.indexOf(category);
-    if(index != -1) {
+    const index = this.recipe.categories.indexOf(category);
+    if (index !== -1) {
       this.recipe.categories.splice(index, 1);
     }
   }
 
   addIngredient() {
-    this.recipe.ingredients.push({name: "", amount: 0, unit: ""});
+    this.recipe.ingredients.push({name: '', amount: 0, unit: ''});
   }
 
   dropIngredient() {
@@ -112,11 +109,11 @@ export class RecipeFormComponent implements OnInit {
 
   addInstruction() {
     this.instructionIndex += 1;
-    this.recipe.instructions.push({order: this.instructionIndex, text: ""});
+    this.recipe.instructions.push({order: this.instructionIndex, text: ''});
   }
 
   amountValidator(value: string) {
-    var result = /^0|[a-zA-Z]|[^\w\/]/.test(value);
+    const result = /^0|[a-zA-Z]|[^\w\/]/.test(value);
     this.amountValid = !result;
   }
 

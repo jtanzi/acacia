@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
@@ -17,9 +17,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
+import { DragDropModule } from 'primeng/dragdrop';
 
-import { RecipeService } from './recipe.service';
-import { PlanService } from './plan.service';
+import { RecipeService } from './providers/recipe.service';
+import { PlanService } from './providers/plan.service';
 import { AF } from './providers/af';
 
 import { AppComponent } from './app.component';
@@ -35,6 +37,7 @@ import { PlansComponent } from './plans/plans.component';
 import { RecipeFormComponent } from './recipeform/recipeform.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { PlanFormComponent } from './planform/planform.component';
+import { TruncatePipe } from './pipes/truncate';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -62,14 +65,17 @@ const routes: Routes = [
     RecipeFormComponent,
     PageNotFoundComponent,
     PlanFormComponent,
+    TruncatePipe
   ],
   imports: [
+    DragDropModule,
     DropdownModule,
     ChipsModule,
     CardModule,
     CalendarModule,
     InputTextModule,
     SelectButtonModule,
+    PanelModule,
     BrowserModule,
     BrowserAnimationsModule,
     DragulaModule,

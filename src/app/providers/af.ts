@@ -1,5 +1,5 @@
 // src/app/providers/af.ts
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
@@ -20,7 +20,7 @@ export class AF {
  * @returns {firebase.Promise<FirebaseAuthState>}
  */
   login() {
-    var provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
     return this.afAuth.auth.signInWithPopup(provider);

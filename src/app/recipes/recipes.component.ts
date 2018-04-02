@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import { RecipeService } from '../recipe.service';
-import { Recipe } from '../recipe';
+import { Router } from '@angular/router';
+import { RecipeService } from '../providers/recipe.service';
+import { Recipe } from '../models/recipe';
 
 @Component({
   selector: 'app-recipes',
@@ -23,37 +23,39 @@ export class RecipesComponent implements OnInit {
   ];
 
   constructor(private recipeService: RecipeService, private router: Router) {
-    this.recipes = [];
-    const result = recipeService.getRecipes();
-    result.subscribe(snapshots => {
-      snapshots.forEach(snapshot => {
-        var recipe = new Recipe();
-        recipe.id = snapshot.key;
-        recipe.title = snapshot.val().title;
-        recipe.author = snapshot.val().author;
-        recipe.categories = snapshot.val().categories;
-        recipe.ingredients = snapshot.val().ingredients;
-        recipe.instructions = snapshot.val().instructions;
-        recipe.notes = snapshot.val().notes;
-        this.recipes.push(recipe);
-      });
-    })
+
   }
 
 
   ngOnInit() {
-    this.recipesCopy = this.recipes;
-    console.log(this.recipesCopy);
+    this.recipes = [];
+    const result = this.recipeService.getRecipes();
+    result.subscribe(recipes => {
+      recipes.forEach((recipe) => {
+        this.recipes.push({
+          id: recipe.key,
+          title: recipe.payload.val().title,
+          author: recipe.payload.val().author,
+          ingredients: recipe.payload.val().ingredients,
+          instructions: recipe.payload.val().instructions,
+          notes: recipe.payload.val().notes,
+          categories: recipe.payload.val().categories
+        })
+      })
+      this.recipesCopy = this.recipes;
+    });
+
   }
 
   onSelect(recipe: Recipe) {
+    console.dir(recipe);
     this.router.navigate(['recipe-details', recipe.id]);
   }
 
   filterSelect(selection) {
     console.log(selection);
-    if(selection != 'All') {
-      this.recipes = this.recipesCopy.filter(r => { return r.categories.indexOf(selection) > -1; });
+    if (selection !== 'All') {
+      this.recipes = this.recipesCopy.filter(r => r.categories.indexOf(selection) > -1);
     } else {
       this.recipes = this.recipesCopy;
     }
