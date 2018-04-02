@@ -1,37 +1,53 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12">
+  <div class="ui-g">
+    <div class="ui-g-8">
       <h2>Create/Update Meal Plan</h2>
     </div>
+    <div class="ui-g-4 ui-g">
+      <div class="ui-g-6"><button pButton class="ui-button-success" label="Save" (click)="onSaveClick()"></button></div>
+      <div class="ui-g-6"><button pButton class="ui-button-info" label="Cancel" (click)="onCancelClick()"></button></div>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-sm-12 form-group" id="filter-selector">
-      <div class="row">
-        <div class="filter-selector-item text-center  col" *ngFor="let filter of filters" (click)="filterSelect(filter.name)">
-          <p>{{ filter.name }}</p>
+  <div class="ui-g">
+    <div class="ui-g-12" id="filter-selector">
+      <p-selectButton id="filter-select" [options]="filters" [(ngModel)]="selectedFilter" (onChange)="filterSelect(selectedFilter)"></p-selectButton>
+    </div>
+  </div>
+  <!-- Dragula -->
+  <!-- <div class="ui-g">
+    <div class="ui-g-4">
+      <div class="recipe-list" [dragula]='"recipe-bag"' [dragulaModel]="recipes">
+        <div class="recipe-chit" *ngFor="let recipe of recipes" [attr.data-recipe-id]="recipe.id">
+          <span>{{recipe.title}}</span>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="row">
-        <div class="col-sm-12 container" class="recipe-list" [dragula]='"plan-bag"' [dragulaModel]="recipes">
-          <mat-card *ngFor="let recipe of recipes" class="recipe-card" [attr.data-recipe-id]="recipe.id">
-            <mat-card-title>{{recipe.title}}</mat-card-title>
-          </mat-card>
+    <div class="ui-g-8">
+      <p-panel *ngFor="let weekday of weekdays" header="{{weekday}}" [toggleable]="true" class="weekday-panel">
+        <div id="{{weekday}}" class="weekday-panel-content" [dragula]='"recipe-bag"' [dragulaModel]="plan.weekdays[weekday]"></div>
+      </p-panel>
+    </div>
+  </div> -->
+
+  <!-- PrimeNg Drag & Drop -->
+  <div class="ui-g">
+    <div class="ui-g-4">
+      <div class="recipe-list">
+        <div class="recipe-chit" *ngFor="let recipe of recipes" [attr.data-recipe-id]="recipe.id" pDraggable="plan-draggable"
+          (onDragStart)="onDrag($event, recipe)">
+          <span>{{recipe.title | truncate : 25 }}</span>
         </div>
       </div>
     </div>
-    <div class="col-sm-8">
-      <div class="row">
-        <h3>{{weekday}}</h3>
-        <div *ngFor="let weekday of weekdays; let i = index" class="col-sm-12 weekday-container row" id={{weekday}}  [dragula]='"plan-bag"' [dragulaModel]="plan.weekdays[weekday]">
-          <mat-card *ngFor="let recipe of plan.weekdays[weekday]" class="recipe-card col-3" [attr.data-recipe-id]="recipe.id">
-            <mat-card-title>{{recipe.title}}</mat-card-title>
-          </mat-card>
+    <div class="ui-g-8">
+      <p-panel *ngFor="let weekday of weekdays" header="{{weekday}}" [toggleable]="true" class="weekday-panel">
+        <div id="{{weekday}}" class="weekday-panel-content" pDroppable="plan-draggable" (onDrop)="onDrop(weekday, recipe)">
+          <div class="recipe-chit" *ngFor="let recipe of plan.weekdays[weekday]; let i = index">
+            <div>{{recipe.title  | truncate : 25 }}<span (click)="removeRecipeFromPlanDay(i, weekday)"><i class="fa fa-times-circle" aria-hidden="true"></i></span></div>
+          </div>
         </div>
-      </div>
+      </p-panel>
     </div>
   </div>
+
 </div>

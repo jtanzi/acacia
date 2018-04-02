@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RecipeService } from '../recipe.service';
-import { Recipe } from '../recipe';
+import { RecipeService } from '../providers/recipe.service';
+import { Recipe } from '../models/recipe';
 
 @Component({
   selector: 'app-recipes',
@@ -54,7 +54,7 @@ export class RecipesComponent implements OnInit {
 
   filterSelect(selection) {
     console.log(selection);
-    if(selection !== 'All') {
+    if (selection !== 'All') {
       this.recipes = this.recipesCopy.filter(r => r.categories.indexOf(selection) > -1);
     } else {
       this.recipes = this.recipesCopy;

@@ -27,95 +27,85 @@
         <h3 class="section-heading">Categories</h3>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-4">
+    <div class="ui-g">
+      <div class="ui-g-4">
         <mat-select placeholder="Category" [ngModel]="recipe.categories" (ngModelChange)="addCategory($event)" name="categories">
           <mat-option *ngFor="let category of categories" [value]="category" >
             {{ category }}
           </mat-option>
         </mat-select>
       </div>
-      <div class="col-sm-8 category-list-wrapper">
+      <div class="ui-g-8 category-list-wrapper">
         <div class="category-list-item" *ngFor="let item of recipe.categories">
           {{ item }} <mat-icon (click)="removeCategory(item)" class="recipe-clear-icon">clear</mat-icon>
         </div>
       </div>
     </div>
   </div>
-  <div class="container form-group">
-    <div class="row">
-      <div class="col-sm-12">
-        <h3 class="section-heading">Ingredients</h3>
-      </div>
+  <div class="ui-g container form-group">
+    <div class="ui-g-12">
+      <h3 class="section-heading">Ingredients</h3>
     </div>
-    <div class="row" *ngFor="let ingredient of recipe.ingredients, let i=index">
-      <div class="col-mat-4">
+    <div class="ui-g-12 ui-g" *ngFor="let ingredient of recipe.ingredients, let i=index">
+      <div class="ui-g-4">
         <mat-input-container>
           <input matInput placeholder="Amount" [ngModel]="ingredient.amount" (ngModelChange)="amountValidator($event)" name="ingredient-amount-{{i}}" #name="ngModel" required maxlength="4">
         </mat-input-container>
         <div *ngIf="!amountValid" class="validation-error-message">Only numbers or fractions (no decimals) and no leading 0's</div>
       </div>
-      <div class="col-mat-4">
+      <div class="ui-g-4">
         <mat-select placeholder="Unit" [(ngModel)]="ingredient.unit" name="ingredient-unit-{{i}}">
           <mat-option *ngFor="let unit of units" [value]="unit">
             {{ unit }}
           </mat-option>
         </mat-select>
       </div>
-      <div class="col-mat-4">
+      <div class="ui-g-4">
         <mat-input-container>
           <input matInput placeholder="What is it?" [(ngModel)]="ingredient.name" name="ingredient-name-{{i}}">
         </mat-input-container>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12 text-center">
+    <div class="ui-g-12 ui-g">
+      <div class="text-center">
         <button class="btn btn-outline-success" (click)="addIngredient()">Add More</button>
       </div>
     </div>
   </div>
-  <div class="container form-group">
-    <div class="row">
-      <div class="col-sm-12">
-        <h3 class="section-heading">Instructions</h3>
-      </div>
+  <div class="ui-g container form-group">
+    <div class="ui-g-12">
+      <h3 class="section-heading">Instructions</h3>
     </div>
-    <div class="row" *ngFor="let instruction of recipe.instructions, let i=index">
-      <div class="col-sm-1">
+    <div class="ui-g-12 ui-g" *ngFor="let instruction of recipe.instructions, let i=index">
+      <div class="ui-g-1">
         <p class="instruction-order-label">{{ instruction.order }})</p>
       </div>
-      <div class="col-sm-11">
+      <div class="ui-g-11">
         <mat-input-container class="input-lg">
           <textarea matInput placeholder="What to do" [(ngModel)]="instruction.text" name="instruction-text-{{i}}"></textarea>
         </mat-input-container>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12 text-center">
+    <div class="ui-g">
+      <div class="ui-g-12 text-center">
         <button class="btn btn-outline-success" (click)="addInstruction()">Add More</button>
       </div>
     </div>
   </div>
-  <div class="container form-group">
-    <div class="row">
-      <div class="col-sm-12">
-        <h3 class="section-heading">Notes</h3>
-      </div>
+  <div class="ui-g container form-group">
+    <div class="ui-g-12">
+      <h3 class="section-heading">Notes</h3>
     </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <mat-input-container class="input-lg">
-          <textarea matInput placeholder="" id="recipe-notes-input" [(ngModel)]="recipe.notes" name="notes"></textarea>
-        </mat-input-container>
-      </div>
+    <div class="ui-g-12">
+      <mat-input-container class="input-lg">
+        <textarea matInput placeholder="" id="recipe-notes-input" [(ngModel)]="recipe.notes" name="notes"></textarea>
+      </mat-input-container>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 text-center">
-        <button class="btn btn-outline-success btn-lg" (click)="saveRecipe()">Save</button>
-        <button class="btn btn-outline-danger btn-lg" routerLink="/recipes">Cancel</button>
-      </div>
+  <div class="ui-g container">
+    <div class="ui-g-12 text-center">
+      <button class="btn btn-outline-success btn-lg" (click)="saveRecipe()">Save</button>
+      <button class="btn btn-outline-danger btn-lg" routerLink="/recipes">Cancel</button>
     </div>
   </div>
 </form>

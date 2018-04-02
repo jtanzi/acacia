@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Recipe } from '../recipe';
-import { RecipeService } from '../recipe.service';
+import { Recipe } from '../models/recipe';
+import { RecipeService } from '../providers/recipe.service';
 
 @Component({
   selector: 'app-recipeform',
@@ -51,7 +51,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
 
     });
 
-    if(this.id) {
+    if (this.id) {
       this.editMode = true;
       const result = this.recipeService.getRecipe(this.id);
       result.subscribe(value => {
@@ -67,7 +67,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
   }
 
   saveRecipe() {
-    if(this.editMode) {
+    if (this.editMode) {
       this.updateRecipe();
     } else {
       this.recipeService.createRecipe(this.recipe);
@@ -87,14 +87,14 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     // Prevent same category from being entered multiple times
     const alreadyPresent = this.recipe.categories.indexOf(category) !== -1;
     console.log(alreadyPresent);
-    if(!alreadyPresent) {
+    if (!alreadyPresent) {
       this.recipe.categories.push(category);
     }
   }
 
   removeCategory(category) {
     const index = this.recipe.categories.indexOf(category);
-    if(index !== -1) {
+    if (index !== -1) {
       this.recipe.categories.splice(index, 1);
     }
   }

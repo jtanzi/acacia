@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Recipe } from '../recipe';
-import { RecipeService } from '../recipe.service';
+import { Recipe } from '../models/recipe';
+import { RecipeService } from '../providers/recipe.service';
 
 import {CardModule} from 'primeng/card';
 
@@ -34,7 +34,7 @@ export class RecipeDetailsComponent implements OnInit {
       this.id = params['id'];
     });
 
-    if(this.id) {
+    if (this.id) {
       const result = this.recipeService.getRecipe(this.id);
       result.subscribe(recipe => {
         console.dir(recipe.payload.val());
@@ -47,7 +47,7 @@ export class RecipeDetailsComponent implements OnInit {
         this.recipe.notes = recipe.payload.val().notes;
 
         const ingredientsArr = recipe.payload.val().ingredients;
-        this.ingredientsArray1 = ingredientsArr.splice(0, ingredientsArr.length/2);
+        this.ingredientsArray1 = ingredientsArr.splice(0, ingredientsArr.length / 2);
         this.ingredientsArray2 = ingredientsArr;
       });
     }

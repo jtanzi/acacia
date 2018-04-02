@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AF } from '../providers/af';
 import { AppComponent } from '../app.component';
-import { RecipeService } from '../recipe.service';
+import { RecipeService } from '../providers/recipe.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,7 +26,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(public recipeService: RecipeService, public afService: AF, private db: AngularFireDatabase, 
     public app: AppComponent, private router: Router ) {
-    // this.displayName = afService.displayName;
+    this.displayName = afService.displayName;
   }
 
   ngOnInit( ) {
