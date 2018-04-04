@@ -4,12 +4,14 @@ import { RecipeService } from '../providers/recipe.service';
 import { Recipe } from '../models/recipe';
 import { Plan } from '../models/plan';
 import { Day } from '../models/day';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { PlanService } from '../providers/plan.service';
 import * as moment from 'moment';
 
-
+interface Weekday {
+  recipeId: string;
+  ingredients: string[];
+}
 
 
 @Component({
@@ -24,6 +26,7 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   plan = new Plan();
   recipeObservable = new FirebaseObjectObservable();
   weekSelectOptions: any[];
+  selectedWeek: any = {};
 
   weekdays = [
     'Su',
@@ -48,7 +51,7 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   selectedFilter = 'All';
 
   constructor(private planService: PlanService, private recipeService: RecipeService,
-    private router: Router, private dragulaService: DragulaService) {
+    private router: Router) {
 
     this.plan.startDate = moment().startOf('week').toDate();
     this.plan.endDate = moment().endOf('week').toDate();
@@ -63,39 +66,6 @@ export class PlanFormComponent implements OnInit, OnDestroy {
       'Sa': []
     };
 
-    /* Dragula Setup */
-    this.dragulaService.setOptions('recipe-bag', {
-      removeOnSpill: false,
-      copy: true
-    });
-
-    dragulaService.removeModel.subscribe((value) => {
-      this.onRemoveModel(value.slice(1));
-    });
-
-    this.dragulaService.dropModel.subscribe((value) => {
-      console.dir(value);
-      this.onDropModel(value.slice(1));
-    });
-
-  }
-
-  private onDropModel(args) {
-    const [el, target, source] = args;
-    console.group();
-    console.dir([el, target, source]);
-    console.groupEnd();
-  }
-
-
-  private onRemoveModel(args) {
-    const [el, source] = args;
-    console.dir([el, source]);
-    const result = this.recipeService.getRecipe(el.getAttribute('data-recipe-id'));
-    result.subscribe((next) => {
-      this.currentRecipe = next;
-    });
-
   }
 
   /* PrimeNg Drag & Drop Setup */
@@ -106,8 +76,12 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   }
 
   private onDrop(weekday) {
-    // console.dir([weekday, recipe]);
-    this.plan.weekdays[weekday].push(this.currentRecipe);
+    const ingredientsList = this.currentRecipe.ingredients.map( x => x.name );
+    const wd = <Weekday>{
+      recipeId: this.currentRecipe.id,
+      ingredients: ingredientsList
+    };
+    this.plan.weekdays[weekday].push(wd);
     console.dir(this.plan.weekdays[weekday]);
   }
 
@@ -117,9 +91,12 @@ export class PlanFormComponent implements OnInit, OnDestroy {
     this.weekSelectOptions = [];
     const thisWeekStart = moment().startOf('week');
     Array.from(Array(7).keys()).forEach((i) => {
+      const start = moment(thisWeekStart).add(7 * i, 'days').format('M/D');
+      const end = moment(thisWeekStart).add(6 + 7 * i, 'days').format('M/D/YYYY')
       this.weekSelectOptions.push({
-        start: moment(thisWeekStart).add(7 * i, 'days').format('M/D/YYYY'),
-        end: moment(thisWeekStart).add(6 + 7 * i, 'days').format('M/D/YYYY')
+        start: start,
+        end: end,
+        label: `${start} - ${end}`
       });
     })
     console.dir(this.weekSelectOptions);
@@ -144,7 +121,6 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.dragulaService.destroy('recipe-bag');
   }
 
   onSelect(recipe: Recipe) {
@@ -161,6 +137,8 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   }
 
   onSaveClick() {
+    this.plan.startDate = this.selectedWeek.start.toDate();
+    this.plan.endDate = this.selectedWeek.end.toDate();
     console.dir(this.plan);
     this.planService.createPlan(this.plan);
   }
