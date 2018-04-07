@@ -1,3 +1,11 @@
-<p>
-  plan-details works!
-</p>
+<div id="header" class="ui-g">
+  <div id="plan-heading" class="ui-g-12">{{ plan.startDate | async | date:'short' }} - {{ plan.endDate | async | date: 'medium' }}</div>
+</div>
+
+<div id="weekdays-container" class="ui-g">
+
+</div>
+
+<div id="stock-list-container" class="ui-g">
+
+</div>

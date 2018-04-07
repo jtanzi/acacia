@@ -22,7 +22,7 @@ export class PlanService {
   }
 
   getPlan(planId: string): Observable<any> {
-    const result = this.db.object(`/plans/${planId}`).snapshotChanges();
+    const result = this.db.object(`/plans/${planId}`).valueChanges();
     return result;
   }
 
