@@ -4,6 +4,7 @@ import { AF } from '../providers/af';
 import { AppComponent } from '../app.component';
 import { RecipeService } from '../providers/recipe.service';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-home-page',
@@ -30,15 +31,13 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit( ) {
-    this.displayName = this.app.displayName;
+    
   }
 
   navigateTo(link: string): void {
     this.router.navigateByUrl(link);
   }
 
-  logout() {
-    this.afService.logout();
-  }
+
 
 }

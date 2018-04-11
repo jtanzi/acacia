@@ -19,6 +19,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { DragDropModule } from 'primeng/dragdrop';
+import { PasswordModule } from 'primeng/password';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 import { RecipeService } from './providers/recipe.service';
 import { PlanService } from './providers/plan.service';
@@ -68,30 +70,31 @@ const routes: Routes = [
     TruncatePipe
   ],
   imports: [
-    DragDropModule,
-    DropdownModule,
-    ChipsModule,
-    CardModule,
-    CalendarModule,
-    InputTextModule,
-    SelectButtonModule,
-    PanelModule,
-    BrowserModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebase), // Named apps not supported in current version of AngularFire2
     BrowserAnimationsModule,
+    BrowserModule,
+    CalendarModule,
+    CardModule,
+    ChipsModule,
+    DragDropModule,
     DragulaModule,
-    MatChipsModule,
-    MatInputModule,
-    MatSelectModule,
+    DropdownModule,
+    FormsModule,
+    InputTextModule,
+    KeyFilterModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule,
+    MatChipsModule,
     MatGridListModule,
-    AngularFireModule.initializeApp(environment.firebase), // Named apps not supported in current version of AngularFire2
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    // RouterModule.forRoot(routes, { enableTracing: true }),
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    PanelModule,
+    PasswordModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    SelectButtonModule,
   ],
   exports: [
     RouterModule

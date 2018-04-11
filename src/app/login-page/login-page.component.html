@@ -1,13 +1,42 @@
 
-<mat-grid-list id="login-container" cols="1" rowHeight="10em">
+<!-- <mat-grid-list id="login-container" cols="1" rowHeight="10em">
   <mat-grid-tile colspan="1" rowspan="1">
     <h1>Login to Your Account</h1><br>    
   </mat-grid-tile>
+  <div *ngIf="!loggedIn" class="ui-g login-form">
+    <input type="password" pPassword [(ngModel)]="password"/>
+  </div>
   <mat-grid-tile colspan="1" rowspan="1">
     <button class="login loginmodal-submit" (click)="login()">Login With Google</button>
   </mat-grid-tile>
   <mat-grid-tile colspan="1" rowspan="1">
     <button class="error-message" *ngIf="errorState">Sorry, that doesn't match with what we have on file.</button>
   </mat-grid-tile>
-</mat-grid-list>
+</mat-grid-list> -->
+
+<div class="ui-g">
+  <div class="ui-g-4 ui-g-offset-4 ui-g-nopad login-container">
+
+    <div class="ui-g-12 login-header">
+      <h1>Login</h1>
+    </div>
+
+    <div class="ui-g-12 ui-g-nopad login-body">
+      <div class="ui-g-12 login-field">
+          <input #email pInputText type="text" pKeyFilter="email" [pValidateOnly]="true">
+      </div>
+      <div class="ui-g-12 login-field">
+          <input #password type="password" pPassword />
+      </div>
+    </div>
+
+    <div class="ui-g-12 login-footer">
+        <p-button label="Login" (click)="login(email.value, password.value)"></p-button>
+      <!-- <p-message severity="error" text="Not a valid number" [@errorState]="form.dirty && !form.valid ? 'visible' : 'hidden'"></p-message> -->
+    </div>
+
+  </div>
+  
+
+</div>
 

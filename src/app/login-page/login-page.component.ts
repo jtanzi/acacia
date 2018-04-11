@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AF } from "../providers/af";
-import { Router } from "@angular/router";
+import { AF } from '../providers/af';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-login-page',
@@ -9,19 +10,30 @@ import { Router } from "@angular/router";
 })
 export class LoginPageComponent implements OnInit {
 
-  loginState: Boolean = false;
+  isLoggedIn: Boolean = false;
   errorState: Boolean = false;
 
-  constructor(public afService: AF, private router: Router) { }
+  constructor(public afService: AF, public afAuth: AngularFireAuth, private router: Router) { }
 
-  login() {
-    this.afService.login().then((data) => {
-      this.loginState = true;
-      // Send them to the homepage if they are logged in
-      this.router.navigate(['']);
-    }).catch( (error) => {
-      this.errorState = true;
-    });
+  login(email: string, password: string): void {
+    const loginResult = this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password');
+          // TODO - pass message to HTML
+        } else {
+          alert(errorMessage);
+        }
+      });
+    loginResult.then( () => {
+      this.isLoggedIn = true;
+    })
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
   }
 
   ngOnInit() {

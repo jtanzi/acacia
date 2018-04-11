@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AF } from './providers/af';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +11,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public isLoggedIn: boolean;
   public title: string;
   public displayName: string;
   public email: string;
   public userId: string;
+  public isLoggedIn: boolean;
 
   // items: FirebaseListObservable<any[]>;
-  constructor(public afService: AF, private router: Router, db: AngularFireDatabase) {
+  constructor(private afService: AF, private router: Router) {
     this.title = 'Acacia';
-    // This asynchronously checks if our user is logged it and will automatically
-    // redirect them to the Login page when the status changes.
 
     this.afService.user.subscribe(
       (auth) => {
@@ -39,7 +39,5 @@ export class AppComponent {
 
   }
 
-  logout() {
-    this.afService.logout();
-  }
+
 }

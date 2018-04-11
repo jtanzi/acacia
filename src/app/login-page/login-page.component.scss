@@ -53,3 +53,23 @@
   opacity: 0.6;
   transition: opacity ease 0.5s;
 }
+
+
+.login-container {
+  background-color: rgb(15, 102, 73);
+  margin-top: 20vh;
+  height: 40vh;
+  border-radius: 3px;
+  color: #FFF;
+}
+
+.login-header, .login-body, .login-footer {
+  text-align: center;
+}
+
+.login-body {
+
+  input {
+    width: 20vw;
+  }
+}
