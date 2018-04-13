@@ -22,13 +22,16 @@ export class LoginPageComponent implements OnInit {
         const errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
           alert('Wrong password');
+          this.errorState = true;
           // TODO - pass message to HTML
         } else {
           alert(errorMessage);
+          this.errorState = true;
         }
       });
     loginResult.then( () => {
       this.isLoggedIn = true;
+      this.errorState = false;
     })
   }
 

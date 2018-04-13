@@ -22,6 +22,9 @@
     </div>
 
     <div class="ui-g-12 ui-g-nopad login-body">
+      <div class="login-error-message">
+        <p *ngIf="errorState" class="login-error-message-text">Login failed, please check your credentials</p>
+      </div>
       <div class="ui-g-12 login-field">
           <input #email pInputText type="text" pKeyFilter="email" [pValidateOnly]="true">
       </div>

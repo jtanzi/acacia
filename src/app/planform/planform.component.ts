@@ -79,6 +79,7 @@ export class PlanFormComponent implements OnInit, OnDestroy {
     const ingredientsList = this.currentRecipe.ingredients.map( x => x.name );
     const wd = <Weekday>{
       recipeId: this.currentRecipe.id,
+      recipeTitle: this.currentRecipe.title;
       ingredients: ingredientsList
     };
     this.plan.weekdays[weekday].push(wd);
@@ -94,12 +95,11 @@ export class PlanFormComponent implements OnInit, OnDestroy {
       const start = moment(thisWeekStart).add(7 * i, 'days').format('M/D');
       const end = moment(thisWeekStart).add(6 + 7 * i, 'days').format('M/D/YYYY')
       this.weekSelectOptions.push({
-        start: start,
-        end: end,
-        label: `${start} - ${end}`
+        label: `${start} - ${end}`,
+        value: { start: start, end: end }
       });
     })
-    console.dir(this.weekSelectOptions);
+    this.selectedWeek = this.weekSelectOptions[0];
 
     this.recipes = [];
     const result = this.recipeService.getRecipes();
@@ -137,14 +137,16 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   }
 
   onSaveClick() {
-    this.plan.startDate = this.selectedWeek.start.toDate();
-    this.plan.endDate = this.selectedWeek.end.toDate();
+    console.dir(this.selectedWeek);
+    this.plan.startDate = this.selectedWeek.start;
+    this.plan.endDate = this.selectedWeek.end;
     console.dir(this.plan);
     this.planService.createPlan(this.plan);
+    this.router.navigate(['/plans']);
   }
 
   onCancelClick() {
-    this.router.navigate(['']);
+    this.router.navigate(['/plans']);
   }
 
   removeRecipeFromPlanDay(index: number, weekday: string) {
@@ -153,5 +155,9 @@ export class PlanFormComponent implements OnInit, OnDestroy {
     console.dir(this.plan.weekdays[weekday]);
   }
 
+  dateSelectorChanged(value: any) {
+    console.log(value);
+    console.dir(this.selectedWeek);
+  }
 
 }

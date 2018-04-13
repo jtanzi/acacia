@@ -10,7 +10,7 @@
   </div>
   <div class="ui-g">
       <div class="ui-g-12" id="date-selector">
-        <p-dropdown [options]="weekSelectOptions" [(ngModel)]="selectedWeek"></p-dropdown>
+        <p-dropdown [options]="weekSelectOptions" [(ngModel)]="selectedWeek" (onChange)="dateSelectorChanged($event.value)"></p-dropdown>
       </div>
       <div class="ui-g-12"><pre>{{ selectedWeek | json }}</pre></div>
     </div>
@@ -31,9 +31,9 @@
     </div>
     <div class="ui-g-8">
       <p-panel *ngFor="let weekday of weekdays" header="{{weekday}}" [toggleable]="true" class="weekday-panel">
-        <div id="{{weekday}}" class="weekday-panel-content" pDroppable="plan-draggable" (onDrop)="onDrop(weekday, recipe)">
+        <div id="{{weekday}}" class="weekday-panel-content" pDroppable="plan-draggable" (onDrop)="onDrop(weekday)">
           <div class="recipe-chit" *ngFor="let recipe of plan.weekdays[weekday]; let i = index">
-            <div>{{recipe.title  }}<span class="remove-recipe-span" (click)="removeRecipeFromPlanDay(i, weekday)"><i class="fa fa-times-circle" aria-hidden="true"></i></span></div>
+            <div>{{ recipe.recipeTitle  }}<span class="remove-recipe-span" (click)="removeRecipeFromPlanDay(i, weekday)"><i class="fa fa-times-circle" aria-hidden="true"></i></span></div>
           </div>
         </div>
       </p-panel>

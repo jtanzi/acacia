@@ -21,6 +21,7 @@ export class AppComponent {
   constructor(private afService: AF, private router: Router) {
     this.title = 'Acacia';
 
+
     this.afService.user.subscribe(
       (auth) => {
         if (auth == null) {
