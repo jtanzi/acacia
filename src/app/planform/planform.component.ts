@@ -10,7 +10,7 @@ import * as moment from 'moment';
 
 interface Weekday {
   recipeId: string;
-  ingredients: string[];
+  recipeTitle: string;
 }
 
 
@@ -24,6 +24,7 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   recipesCopy: Recipe[];
   public currentRecipe: Recipe;
   plan = new Plan();
+  ingredientList = [];
   recipeObservable = new FirebaseObjectObservable();
   weekSelectOptions: any[];
   selectedWeek: any = {};
@@ -53,8 +54,8 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   constructor(private planService: PlanService, private recipeService: RecipeService,
     private router: Router) {
 
-    this.plan.startDate = moment().startOf('week').toDate();
-    this.plan.endDate = moment().endOf('week').toDate();
+    this.plan.startDate = moment().startOf('week').toString();
+    this.plan.endDate = moment().endOf('week').toString();
 
     this.plan.weekdays = {
       'Su': [],
@@ -79,9 +80,10 @@ export class PlanFormComponent implements OnInit, OnDestroy {
     const ingredientsList = this.currentRecipe.ingredients.map( x => x.name );
     const wd = <Weekday>{
       recipeId: this.currentRecipe.id,
-      recipeTitle: this.currentRecipe.title;
-      ingredients: ingredientsList
+      recipeTitle: this.currentRecipe.title
     };
+    this.ingredientList = this.ingredientList.concat(this.currentRecipe.ingredients);
+    console.dir(this.ingredientList);
     this.plan.weekdays[weekday].push(wd);
     console.dir(this.plan.weekdays[weekday]);
   }
@@ -138,8 +140,9 @@ export class PlanFormComponent implements OnInit, OnDestroy {
 
   onSaveClick() {
     console.dir(this.selectedWeek);
-    this.plan.startDate = this.selectedWeek.start;
-    this.plan.endDate = this.selectedWeek.end;
+    this.plan.startDate = this.selectedWeek.value.start;
+    this.plan.endDate = this.selectedWeek.value.end;
+    this.plan.ingredientList = this.ingredientList;
     console.dir(this.plan);
     this.planService.createPlan(this.plan);
     this.router.navigate(['/plans']);

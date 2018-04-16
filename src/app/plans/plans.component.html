@@ -1,8 +1,19 @@
 <div class="ui-g">
 
-    <div class="ui-g-12">
-        <div class="plan-listing" *ngFor="let plan of plans">
-            <h3>{{ plan.startDate  }} - {{ plan.endDate }}</h3>
+    <div class="ui-g-6 ui-g-offset-3 plans-heading">
+        <h2>Plans</h2>
+    </div>
+
+    <div class="ui-g-8 ui-g-offset-2">
+        <div class="plan-listing" *ngFor="let plan of plans; let i = index">
+            <a href="/plan-details/{{ plan.id }}">
+                <h3>{{ plan.startDate  }} - {{ plan.endDate }}</h3>
+            </a>
+            <span (click)="onClickPlanRemove(plan.id, i )"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
         </div>
+    </div>
+
+    <div class="ui-g-6 ui-g-offset-3">
+        <p-button class="plans-btn" label="Add New" (click)="onClickAddNew()"></p-button>
     </div>
 </div>

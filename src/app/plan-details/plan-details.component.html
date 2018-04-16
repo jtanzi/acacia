@@ -1,11 +1,19 @@
 <div id="header" class="ui-g">
-  <div id="plan-heading" class="ui-g-12">{{ plan.startDate | async | date:'short' }} - {{ plan.endDate | async | date: 'medium' }}</div>
+  <div id="plan-heading" class="ui-g-12">{{ plan.startDate }} - {{ plan.endDate }}</div>
 </div>
 
 <div id="weekdays-container" class="ui-g">
-
+  <p-panel *ngFor="let weekday of days" header="{{weekday}}" class="ui-g-12 ui-md-3">
+    <div class="weekday-recipe-list-container">
+      <div class="weekday-recipe-list-item" *ngFor="let recipe of plan.weekdays[weekday]" (click)="onRecipeListItemClick(recipe.id)">{{ recipe.recipeTitle }}</div>
+    </div>
+  </p-panel>
 </div>
 
 <div id="stock-list-container" class="ui-g">
-
+  <div class="ui-g-3" *ngFor="let ingredient of ingredientList">  
+    <p-checkbox [(ngModel)]="ingredient.gotIt" binary="true"></p-checkbox>
+    <span>{{ ingredient.name }}</span>
+    <span>({{ ingredient.amount }})</span>
+  </div>
 </div>

@@ -18,26 +18,27 @@ export class AppComponent {
   public isLoggedIn: boolean;
 
   // items: FirebaseListObservable<any[]>;
-  constructor(private afService: AF, private router: Router) {
+  constructor(private afService: AF,  public afAuth: AngularFireAuth, private router: Router) {
     this.title = 'Acacia';
 
 
     this.afService.user.subscribe(
       (auth) => {
         if (auth == null) {
-          console.log('Not Logged in.');
           this.router.navigate(['login']);
           this.isLoggedIn = false;
         } else {
-          console.log('Successfully Logged in.');
           this.isLoggedIn = true;
           this.displayName = auth.displayName;
           this.email = auth.email;
-          this.router.navigate(['']);
         }
       }
     );
 
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
   }
 
 

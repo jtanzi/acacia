@@ -31,4 +31,13 @@ export class PlansComponent implements OnInit {
     })
   }
 
+  onClickAddNew() {
+    this.router.navigate(['/plan/create']);
+  }
+
+  onClickPlanRemove(planId, index) {
+    this.planService.removePlan(planId);
+    this.plans = this.plans.splice(index, 1);
+  }
+
 }

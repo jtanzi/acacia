@@ -21,6 +21,7 @@ import { PanelModule } from 'primeng/panel';
 import { DragDropModule } from 'primeng/dragdrop';
 import { PasswordModule } from 'primeng/password';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { RecipeService } from './providers/recipe.service';
 import { PlanService } from './providers/plan.service';
@@ -77,6 +78,7 @@ const routes: Routes = [
     BrowserModule,
     CalendarModule,
     CardModule,
+    CheckboxModule,
     ChipsModule,
     DragDropModule,
     DragulaModule,
@@ -93,7 +95,10 @@ const routes: Routes = [
     MatSelectModule,
     PanelModule,
     PasswordModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(
+      routes,
+      { enableTracing: false } // <-- debugging purposes only
+    ),
     SelectButtonModule,
   ],
   exports: [

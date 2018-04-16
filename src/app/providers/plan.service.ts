@@ -31,9 +31,9 @@ export class PlanService {
     return planRef.set(plan);
   }
 
-  removePlan(plan): any {
-    const planRef = this.db.object('plan');
-    return planRef.set(plan);
+  removePlan(planId): any {
+    const planRef = this.db.object(`/plans/${planId}`);
+    planRef.remove();
   }
 
 }

@@ -13,5 +13,6 @@ export class Plan {
     'Th': Recipe[],
     'F': Recipe[],
     'Sa': Recipe[]
-  }
+  };
+  ingredientList: any[];
 }

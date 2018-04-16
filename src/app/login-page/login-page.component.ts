@@ -32,11 +32,8 @@ export class LoginPageComponent implements OnInit {
     loginResult.then( () => {
       this.isLoggedIn = true;
       this.errorState = false;
+      this.router.navigate(['']);
     })
-  }
-
-  logout() {
-    this.afAuth.auth.signOut();
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="ui-g">
     <div class="ui-g-8">
-      <h2>Create/Update Meal Plan</h2>
+      <h2 class="plan-create-title">Create/Update Meal Plan</h2>
     </div>
     <div class="ui-g-4">
       <button pButton class="ui-button-success" label="Save" (click)="onSaveClick()"></button>
@@ -9,11 +9,11 @@
     </div>
   </div>
   <div class="ui-g">
-      <div class="ui-g-12" id="date-selector">
-        <p-dropdown [options]="weekSelectOptions" [(ngModel)]="selectedWeek" (onChange)="dateSelectorChanged($event.value)"></p-dropdown>
-      </div>
-      <div class="ui-g-12"><pre>{{ selectedWeek | json }}</pre></div>
+    <div class="ui-g-2"><h3 class="date-selector-label">Week:</h3></div>
+    <div class="ui-g-4" id="date-selector">
+      <p-dropdown [options]="weekSelectOptions" [(ngModel)]="selectedWeek" (onChange)="dateSelectorChanged($event.value)"></p-dropdown>
     </div>
+  </div>
   <div class="ui-g">
     <div class="ui-g-12" id="filter-selector">
       <p-selectButton id="filter-select" [options]="filters" [(ngModel)]="selectedFilter" (onChange)="filterSelect(selectedFilter)"></p-selectButton>
