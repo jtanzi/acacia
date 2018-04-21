@@ -21,12 +21,7 @@ export class RecipeDetailsComponent implements OnInit {
 
 
   constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) {
-    // this.recipe.title = "";
-    // this.recipe.author="";
-    // this.recipe.categories = [];
-    // this.recipe.ingredients = [{name: "", unit: "", amount: 0}];
-    // this.recipe.instructions = [{order: 1, text: ""}];
-    // this.recipe.notes = "";
+
   }
 
   ngOnInit() {
@@ -51,6 +46,10 @@ export class RecipeDetailsComponent implements OnInit {
         this.ingredientsArray2 = ingredientsArr;
       });
     }
+  }
+
+  onEditClick() {
+    this.router.navigate([`recipe/${this.id}`]);
   }
 
 

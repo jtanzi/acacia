@@ -22,7 +22,7 @@ export class PlanService {
   }
 
   getPlan(planId: string): Observable<any> {
-    const result = this.db.object(`/plans/${planId}`).valueChanges();
+    const result = this.db.object(`/plans/${planId}`).snapshotChanges();
     return result;
   }
 
@@ -31,9 +31,16 @@ export class PlanService {
     return planRef.set(plan);
   }
 
+  updatePlanIngredients(plan: Plan, ingredientList: string[]) {
+    const planRef = this.db.object('plan');
+    return planRef.update({ingredientList: ingredientList});
+  }
+
   removePlan(planId): any {
-    const planRef = this.db.object(`/plans/${planId}`);
-    planRef.remove();
+    const promise = this.db.object(`/plans/${planId}`).remove();
+    promise
+      .then(_ => console.log(`Plan ${planId} removed.`))
+      .catch(err => console.error(err, `Failed to remove plan ${planId}`));
   }
 
 }

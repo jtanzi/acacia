@@ -20,7 +20,7 @@ export class PlansComponent implements OnInit {
     const plansObservable = this.planService.getPlans();
     plansObservable.subscribe((objects) => {
       objects.forEach((value) => {
-        const plan = new Plan();
+        const plan = <Plan>{};
         plan.id = value.key;
         plan.startDate = value.payload.val().startDate;
         plan.endDate = value.payload.val().endDate;
@@ -36,8 +36,9 @@ export class PlansComponent implements OnInit {
   }
 
   onClickPlanRemove(planId, index) {
+    console.log(index);
     this.planService.removePlan(planId);
-    this.plans = this.plans.splice(index, 1);
+    this.plans.splice(index, 1);
   }
 
 }

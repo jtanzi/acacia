@@ -54,8 +54,8 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
     if (this.id) {
       this.editMode = true;
       const result = this.recipeService.getRecipe(this.id);
-      result.subscribe(value => {
-        this.recipe = <Recipe>value;
+      result.subscribe(snapshot => {
+        this.recipe = snapshot.payload.val();
       });
     }
   }
@@ -76,7 +76,7 @@ export class RecipeFormComponent implements OnInit, OnDestroy {
   }
 
   updateRecipe() {
-    // this.recipe.set(this.recipe);
+    this.recipeService.updateRecipe(this.recipe);
   }
 
   cancel() {

@@ -6,6 +6,7 @@ import { Plan } from '../models/plan';
 import { Day } from '../models/day';
 import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { PlanService } from '../providers/plan.service';
+import { Parser } from '../parser';
 import * as moment from 'moment';
 
 interface Weekday {
@@ -25,6 +26,7 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   public currentRecipe: Recipe;
   plan = new Plan();
   ingredientList = [];
+  parser = new Parser();
   recipeObservable = new FirebaseObjectObservable();
   weekSelectOptions: any[];
   selectedWeek: any = {};
@@ -54,6 +56,7 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   constructor(private planService: PlanService, private recipeService: RecipeService,
     private router: Router) {
 
+    
     this.plan.startDate = moment().startOf('week').toString();
     this.plan.endDate = moment().endOf('week').toString();
 
@@ -85,7 +88,6 @@ export class PlanFormComponent implements OnInit, OnDestroy {
     this.ingredientList = this.ingredientList.concat(this.currentRecipe.ingredients);
     console.dir(this.ingredientList);
     this.plan.weekdays[weekday].push(wd);
-    console.dir(this.plan.weekdays[weekday]);
   }
 
   ngOnInit() {
@@ -102,6 +104,8 @@ export class PlanFormComponent implements OnInit, OnDestroy {
       });
     })
     this.selectedWeek = this.weekSelectOptions[0];
+    this.plan.startDate = this.selectedWeek.start;
+    this.plan.endDate = this.selectedWeek.end;
 
     this.recipes = [];
     const result = this.recipeService.getRecipes();
@@ -130,7 +134,6 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   }
 
   filterSelect(selection) {
-    console.log(selection);
     if (selection !== 'All') {
       this.recipes = this.recipesCopy.filter(r => r.categories.indexOf(selection) > -1);
     } else {
@@ -139,11 +142,24 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   }
 
   onSaveClick() {
-    console.dir(this.selectedWeek);
-    this.plan.startDate = this.selectedWeek.value.start;
-    this.plan.endDate = this.selectedWeek.value.end;
-    this.plan.ingredientList = this.ingredientList;
-    console.dir(this.plan);
+    this.plan.startDate = this.selectedWeek.start;
+    this.plan.endDate = this.selectedWeek.end;
+    
+    // Parse ingredient terms
+    const parserTerms = this.ingredientList.map(elem => elem.name);
+    const parsedTerms = this.parser.getWords(parserTerms);
+
+    this.plan.ingredientList = this.ingredientList.map((elem, i) => {
+      const ingredientListItem = { name: null, amount: 0, gotIt: false};
+      if (parsedTerms[i]) {
+        ingredientListItem.name = parsedTerms[i];
+        ingredientListItem.amount = elem.amount;
+      } else {
+        elem = null;
+      }
+      return ingredientListItem;
+    });
+    this.plan.ingredientList = this.plan.ingredientList.filter( elem => elem.name !== null);
     this.planService.createPlan(this.plan);
     this.router.navigate(['/plans']);
   }
@@ -153,14 +169,11 @@ export class PlanFormComponent implements OnInit, OnDestroy {
   }
 
   removeRecipeFromPlanDay(index: number, weekday: string) {
-    console.log(index, weekday);
     this.plan.weekdays[weekday].splice(index, 1);
-    console.dir(this.plan.weekdays[weekday]);
   }
 
   dateSelectorChanged(value: any) {
-    console.log(value);
-    console.dir(this.selectedWeek);
+    console.dir(this.selectedWeek)
   }
 
 }

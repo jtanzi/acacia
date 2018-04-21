@@ -2,6 +2,11 @@
 <div class="page-container" (ngModel)="recipe">
 
   <div class="ui-g">
+    <div class="ui-g-12">
+      <p-button label="Edit" (click)="onEditClick()" ></p-button>
+    </div>
+  </div>
+  <div class="ui-g">
       <div class="ui-g-12 ui-lg-6">
         <p-card title="{{ recipe.title }}">
           <div class="ing-card">

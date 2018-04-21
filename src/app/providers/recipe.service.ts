@@ -29,7 +29,7 @@ export class RecipeService {
   }
 
   updateRecipe(recipe: Recipe) {
-    const recipeRef = this.db.object('recipe');
+    const recipeRef = this.db.object(`/recipes/${recipe.id}`);
     return recipeRef.set(recipe);
   }
 
