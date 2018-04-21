@@ -1,13 +1,8 @@
 {
-    /* Fruits */
     "orange": "oranges",
     "lemon": "lemons",
-
-    /* Herb */
     "cilantro": "cilantro",
     "parsley": "parsley",
-
-    /* Vegetables */
     "onion": "onions",
     "spinach": "spinach",
     "carrot": "carrot",
@@ -25,7 +20,7 @@
     "lettuce": "lettuce",
     "celery": "celery",
     "asparagus": "asparagus",
-    "brussel sprouts": "brussels sprouts",
+    "brussels sprouts": "brussels sprouts",
     "brussel sprouts": "brussels sprouts",
     "brussels sprouts": "brussels sprouts",
     "eggplant": "eggplant",
@@ -52,15 +47,11 @@
     "corn": "corn",
     "napa cabbage": "napa cabbage",
     "red cabbage": "red cabbage",
-
-    /* Proteins */
     "egg": "eggs",
     "chicken": "chicken",
     "beef": "beef",
     "veal": "veal",
     "stew meat": "stew meat",
-
-    /* Cheeses */
     "gouda": "gouda",
     "cheddar": "cheddar",
     "monterey jack": "monterey jack",
