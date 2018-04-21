@@ -11,9 +11,17 @@
 </div>
 
 <div id="stock-list-container" class="ui-g">
-  <div class="ui-g-3" *ngFor="let ingredient of ingredientList">  
-    <p-checkbox [(ngModel)]="ingredient.gotIt" binary="true"></p-checkbox>
-    <span>{{ ingredient.name }}</span>
-    <span>({{ ingredient.amount }})</span>
-  </div>
+  <p-card title="You Will Need These" class="ui-g-12">
+    <div class="ingredient-list-wrapper ">
+      <div class="ui-g-3 ingredient-list-item" *ngFor="let ingredient of ingredientList">  
+          <p-checkbox [(ngModel)]="ingredient.gotIt" binary="true"></p-checkbox>
+          <span>{{ ingredient.name }}</span>
+          <span>({{ ingredient.amount }})</span>
+        </div>
+    </div>
+    <p-footer>
+      
+    </p-footer>
+  </p-card>
 </div>
+

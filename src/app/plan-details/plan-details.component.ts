@@ -14,38 +14,38 @@ export class PlanDetailsComponent implements OnInit {
 
   planId: string;
   planRef: any;
-  plan: Plan;
+  plan = new Plan();
   ingredientList = [];
-  // weekdays = [
-  //   'Su',
-  //   'M',
-  //   'Tu',
-  //   'W',
-  //   'Th',
-  //   'F',
-  //   'Sa'
-  // ];
 
-  days: any[];
+  days = [];
   private sub: any;
 
   constructor(private planService: PlanService, private recipeService: RecipeService,
     private router: Router, private route: ActivatedRoute) {
-      // this.plan = new Plan();
-      this.days = ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'];
+
     }
 
   ngOnInit() {
-    this.sub = this.route.params;
-    this.planRef = this.sub.pipe(mergeMap(val => this.planService.getPlan(val['id'])))
-      .subscribe( result => {
-        this.plan = result;
-        console.dir(this.plan);
+    this.route.params.subscribe( params => {
+      this.planId = params['id'];
+
+      this.planService.getPlan(this.planId)
+      .subscribe( snapshot => {
+        const value = snapshot.payload.val();
+        this.plan.startDate = value.startDate;
+        this.plan.endDate = value.endDate;
+        this.plan.weekdays = value.weekdays;
+        this.days = Object.keys(value.weekdays);
+        console.table(value.ingredientList);
+        this.plan.ingredientList = value.ingredientList;
+
         this.plan.ingredientList.forEach((item) => {
-          console.dir(item);
           this.ingredientList.push(item);
         });
       });
+
+    });
+
   }
 
   onRecipeListItemClick(recipeId: string) {
